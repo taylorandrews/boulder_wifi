@@ -1,9 +1,10 @@
 import pandas as pd
+import numpy as np
 
-def read_data(paths):
+def read_data():
     '''
     INPUT
-        - list of paths to csv files where data resides. column names in csvs must be the same!
+        none
 
     OUTPUT
         - pandas dataframe with concatinated data
@@ -11,10 +12,16 @@ def read_data(paths):
     takes csvs with same column names, reads them into pandas and concatinates them into on df
     '''
 
-    df_month = pd.read_csv(path_month)
+    path_month = '../data/public_wifi_usage_30_day.csv'
+    path_historic = '../data/public_wifi_usage_historic.csv'
+
+    df_month = pd.read_csv(filepath_or_buffer=path_month)
     df_historic = pd.read_csv(path_historic)
     dfs = [df_month, df_historic]
-    df_total = pd.concat(dfs)
+    df_total = pd.concat(dfs, ignore_index=True)
+
+    # dict_value_counts = get_value_counts(df_total)
+    # print_num_values(dict_value_counts)
 
     return df_total
 
@@ -48,12 +55,3 @@ def print_num_values(dict_value_counts):
 
     for k, v in dict_value_counts.iteritems():
         print 'column name: {} -> {} unique values'.format(k, v[0])
-
-if __name__ == '__main__':
-    path_month = '../data/public_wifi_usage_30_day.csv'
-    path_historic = '../data/public_wifi_usage_historic.csv'
-    paths = [path_month, path_historic]
-
-    df = read_data(paths)
-    dict_value_counts = get_value_counts(df)
-    print_num_values(dict_value_counts)
