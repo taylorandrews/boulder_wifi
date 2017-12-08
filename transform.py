@@ -56,10 +56,11 @@ def get_date(df):
 
     return df
 
-if __name__ == '__main__':
+def load_transform():
     dft = read_data()
     df_dates = get_date(dft)
     df_locations = pd.read_csv('../data/public_wifi_locations.csv')
     df = get_latlng(df_dates, df_locations)
     df.drop_duplicates(inplace=True)
-    df.to_csv('~/Documents/mashey/fedex_day/data/data.csv')
+    # df.to_csv('~/Documents/mashey/fedex_day/data/data.csv')
+    return df
